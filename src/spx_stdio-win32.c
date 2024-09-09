@@ -15,11 +15,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#pragma warning(push, 0)
 
-#if defined(__unix__) || (defined(__APPLE__) && defined(__MACH__))
-#   include "spx_stdio-unix.c"
-#elif defined(_WIN32)
-#   include "spx_stdio-win32.c"
-#else
-#   error "Your platform is not supported, please open an issue."
-#endif
+int spx_stdio_disable(int fd)
+{
+    return -1;
+}
+
+int spx_stdio_restore(int fd, int copy)
+{
+    return -1;
+}
+
+#pragma warning(pop)

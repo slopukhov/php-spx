@@ -15,7 +15,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-
 #include "main/php.h"
 #include "main/SAPI.h"
 
@@ -91,14 +90,14 @@ static struct {
 
     zend_op_array * (*zend_compile_file)(zend_file_handle * file_handle, int type TSRMLS_DC);
     zend_op_array * (*zend_compile_string)(
-#if PHP_API_VERSION >= 20200930
+#if ZEND_MODULE_API_NO >= 20200930
         zend_string * source_string,
         const
 #else
         zval * source_string,
 #endif
         char * filename
-#if PHP_API_VERSION >= 20210903
+#if ZEND_MODULE_API_NO >= 20210903
         , zend_compile_position position
 #endif
         TSRMLS_DC
@@ -110,13 +109,13 @@ static struct {
 
     void (*zend_error_cb) (
         int type,
-#if PHP_API_VERSION >= 20210902
+#if ZEND_MODULE_API_NO >= 20210902
         zend_string *error_filename,
 #else
         const char *error_filename,
 #endif
         const uint error_lineno,
-#if PHP_API_VERSION >= 20200930
+#if ZEND_MODULE_API_NO >= 20200930
         zend_string *message
 #else
         const char *format,
@@ -201,14 +200,14 @@ static void global_hook_execute_internal(
 
 static zend_op_array * global_hook_zend_compile_file(zend_file_handle * file_handle, int type TSRMLS_DC);
 static zend_op_array * global_hook_zend_compile_string(
-#if PHP_API_VERSION >= 20200930
+#if ZEND_MODULE_API_NO >= 20200930
     zend_string * source_string,
     const
 #else
     zval * source_string,
 #endif
     char * filename
-#if PHP_API_VERSION >= 20210903
+#if ZEND_MODULE_API_NO >= 20210903
     , zend_compile_position position
 #endif
         TSRMLS_DC
@@ -220,13 +219,13 @@ static int global_hook_gc_collect_cycles(void);
 
 static void global_hook_zend_error_cb(
     int type,
-#if PHP_API_VERSION >= 20210902
+#if ZEND_MODULE_API_NO >= 20210902
     zend_string *error_filename,
 #else
     const char *error_filename,
 #endif
     const uint error_lineno,
-#if PHP_API_VERSION >= 20200930
+#if ZEND_MODULE_API_NO >= 20200930
     zend_string *message
 #else
     const char *format,
@@ -1207,14 +1206,14 @@ static zend_op_array * global_hook_zend_compile_file(zend_file_handle * file_han
 }
 
 static zend_op_array * global_hook_zend_compile_string(
-#if PHP_API_VERSION >= 20200930
+#if ZEND_MODULE_API_NO >= 20200930
     zend_string * source_string,
     const
 #else
     zval * source_string,
 #endif
     char * filename
-#if PHP_API_VERSION >= 20210903
+#if ZEND_MODULE_API_NO >= 20210903
     , zend_compile_position position
 #endif
         TSRMLS_DC
@@ -1223,7 +1222,7 @@ static zend_op_array * global_hook_zend_compile_string(
         return ze_hooked_func.zend_compile_string(
             source_string,
             filename
-#if PHP_API_VERSION >= 20210903
+#if ZEND_MODULE_API_NO >= 20210903
             , position
 #endif
             TSRMLS_CC
@@ -1243,7 +1242,7 @@ static zend_op_array * global_hook_zend_compile_string(
     zend_op_array * op_array = ze_hooked_func.zend_compile_string(
         source_string,
         filename
-#if PHP_API_VERSION >= 20210903
+#if ZEND_MODULE_API_NO >= 20210903
         , position
 #endif
         TSRMLS_CC
@@ -1305,13 +1304,13 @@ static int global_hook_gc_collect_cycles(void)
 
 static void global_hook_zend_error_cb(
     int type,
-#if PHP_API_VERSION >= 20210902
+#if ZEND_MODULE_API_NO >= 20210902
     zend_string *error_filename,
 #else
     const char *error_filename,
 #endif
     const uint error_lineno,
-#if PHP_API_VERSION >= 20200930
+#if ZEND_MODULE_API_NO >= 20200930
     zend_string *message
 #else
     const char *format,
@@ -1323,7 +1322,7 @@ static void global_hook_zend_error_cb(
             type,
             error_filename,
             error_lineno,
-#if PHP_API_VERSION >= 20200930
+#if ZEND_MODULE_API_NO >= 20200930
             message
 #else
             format,
@@ -1343,7 +1342,7 @@ static void global_hook_zend_error_cb(
         type,
         error_filename,
         error_lineno,
-#if PHP_API_VERSION >= 20200930
+#if ZEND_MODULE_API_NO >= 20200930
         message
 #else
         format,

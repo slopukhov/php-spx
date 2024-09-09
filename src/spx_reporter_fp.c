@@ -392,7 +392,7 @@ static size_t print_report(fp_reporter_t * reporter, const spx_profiler_event_t 
             snprintf(
                 cycle_depth_str,
                 sizeof(cycle_depth_str),
-                "%lu@",
+                "%zu@",
                 entry->stats.max_cycle_depth
             );
         }

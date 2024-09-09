@@ -190,13 +190,20 @@ void spx_fmt_row_print(const spx_fmt_row_t * row, spx_output_stream_t * output)
         ;
 
         if (row->cells[i].ansi_fmt) {
+#ifdef _WIN32
+#   pragma warning(push)
+#   pragma warning(disable: 4129)
+#endif
             spx_output_stream_printf(output, "\e[%sm", row->cells[i].ansi_fmt);
+#ifdef _WIN32
+#pragma warning(pop)
+#endif
         }
 
         snprintf(
             format,
             sizeof(format),
-            "%%-%lu.%lus",
+            "%%-%zu.%zus",
             cell_width,
             cell_width
         );
@@ -204,7 +211,14 @@ void spx_fmt_row_print(const spx_fmt_row_t * row, spx_output_stream_t * output)
         spx_output_stream_printf(output, format, text);
 
         if (row->cells[i].ansi_fmt) {
+#ifdef _WIN32
+#   pragma warning(push)
+#   pragma warning(disable: 4129)
+#endif
             spx_output_stream_print(output, "\e[0m");
+#ifdef _WIN32
+#   pragma warning(pop)
+#endif
         }
 
         spx_output_stream_print(output, " |");

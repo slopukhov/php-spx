@@ -2,7 +2,7 @@
 
 [![Build Status][:badge-ci:]][:link-ci:]
 ![Supported PHP versions: 5.4 .. 8.x][:badge-php-versions:]
-![Supported platforms: GNU/Linux, macOS & FreeBSD][:badge-supported-platforms:]
+![Supported platforms: GNU/Linux, macOS, FreeBSD & Windows][:badge-supported-platforms:]
 ![Supported architectures: x86-64 or ARM64][:badge-supported-arch:]
 [![License][:badge-license:]][:link-license:]
 
@@ -34,12 +34,8 @@ It differentiates itself from other similar extensions as being:
 
 ## Requirements
 
-Platforms support is currently quite limited. Feel free to open an issue if your platform is not supported.
-Current requirements are:
-
 * x86-64 or ARM64
-* **GNU/Linux**, **macOS** or **FreeBSD**
-* zlib dev package (e.g. zlib1g-dev on Debian based distros)
+* **GNU/Linux**, **macOS**, **FreeBSD** or **Windows**
 * PHP 5.4 to 8.3
 
 ## Installation
@@ -66,6 +62,12 @@ sudo make install
 Then add `extension=spx.so` to your *php.ini*, or in a dedicated *spx.ini* file created within the include directory.
 You may also want to override [default SPX configuration](#configuration) to be able to profile a web request, with [this one](#private-environment) for example for a local development environment.
 
+### Windows
+
+Windows is supported, with these extra limitations:
+- live update of flat profile in CLI (`SPX_FP_LIVE=1`) is not supported.
+
+Also, consider Windows support as still being in beta.
 
 ### ZTS PHP (multi-thread)
 
